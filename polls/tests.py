@@ -37,14 +37,16 @@ class QuestionModelTests(TestCase):
         recent_question = Question(pub_date=time)
         self.assertIs(recent_question.was_published_recently(), True)
 
-    def create_question(question_text, days):
-        """
-        Create a question with the given `question_text` and published the
-        given number of `days` offset to now (negative for questions published
-        in the past, positive for questions that have yet to be published).
-        """
-        time = timezone.now() + datetime.timedelta(days=days)
-        return Question.objects.create(question_text=question_text, pub_date=time)
+
+def create_question(question_text, days):
+    """
+    Create a question with the given `question_text` and published the
+    given number of `days` offset to now (negative for questions published
+    in the past, positive for questions that have yet to be published).
+    """
+    time = timezone.now() + datetime.timedelta(days=days)
+    return Question.objects.create(question_text=question_text, pub_date=time)
+
 
 class QuestionIndexViewTests(TestCase):
     def test_no_questions(self):
@@ -55,6 +57,7 @@ class QuestionIndexViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "No polls are available.")
         self.assertQuerysetEqual(response.context['latest_question_list'], [])
+
 
     def test_past_question(self):
         """
@@ -67,6 +70,7 @@ class QuestionIndexViewTests(TestCase):
             response.context['latest_question_list'],
             [question],
         )
+
 
     def test_future_question(self):
         """
@@ -90,6 +94,7 @@ class QuestionIndexViewTests(TestCase):
             response.context['latest_question_list'],
             [question],
         )
+
 
     def test_two_past_questions(self):
         """
