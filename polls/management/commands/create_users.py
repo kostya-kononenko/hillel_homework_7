@@ -9,8 +9,6 @@ fake = Faker(['it_IT', 'en_US'])
 
 class Command(BaseCommand):
 
-    help = 'Create random users, email and passwords'
-
     def add_arguments(self, parser):
         parser.add_argument('total', type=int, choices=range(1, 10), help='Indicates the number of users to be created')
 
