@@ -1,2 +1,2 @@
-# hillel_homework_5
-Writing your first Django app, part 1 - part 7¶
+# hillel_homework_7
+Writing custem managmend commands(random create (user, e-mail, passwords), delete users (exclude superusers)
